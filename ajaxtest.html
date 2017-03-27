@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Favorite Movies</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <h1 id=placeholder>Console will go here</h1>
+      
+    </div>
+
+    <div id="output"></div>
+
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+// GET https://ridb.recreation.gov/api/v1/recareas/?apikey=thisIsMyKey
+    
+    //Get list of local parks and recs
+    // var queryURL = "https://utcors1.herokuapp.com/https://ridb.recreation.gov/api/v1/recareas/?state=nc";
+
+    // $.ajax({
+    //   url: queryURL,
+    //   method: "GET", 
+    //   headers: {
+    //     "apikey" : "DF7717B2EA62499EBA53C45FA8BF820C",
+    //     "x-requested-with":" "
+    //   }
+
+    // }).done(function(response, err) {
+    //   if (err !="success"){
+    //     console.log("error");
+    //    console.log(err);
+    //   }
+    //   //var feedback=response.recdata[0].RecAreaName;
+    //   //console.log(feedback);
+    //   console.log(response);
+      
+    // }); // end of .DONE
+
+    queryURL1="http://api.eventful.com/json/events/search?app_key=C4twR9SMnMSRvt9T&location=27713&country_name=united+states&within=5&date=Next+week"
+
+  console.log(queryURL1);
+
+
+  $.ajax({
+      url: queryURL1,
+      method: 'GET',
+      dataType: 'jsonp'
+
+      }).done(function(response, err) {
+
+        console.log("120 entering .done");
+        // if err != "success"
+        // log error
+        // otherwise, show response
+        if (err !="success") {
+          console.log("error = ");
+          console.log(err); 
+          }
+          for (i=0; i<10; i++){
+              var cityName= response.events.event[i].city_name;
+              
+              //$("#placeholder").append(cityName);
+              var eventName= response.events.event[i].title;
+              //$("#placeholder").prepend("event title: " + eventName);
+              /*var date=new Date();*/
+              var d=response.events.event[i].start_time;
+              //var date=formatDate(d);
+             /* var date=moment(d).format('LLL');*/
+              var address=response.events.event[i].venue_address;
+              //var imgURL=results.events.event[0].image.thumb.url;
+              
+              console.log(cityName);
+              $('#eventResults').append("<br><br>Event:" + eventName + "- will be in " + cityName + " <br> Date: " + d + "<br> Location " + address);
+                  
+          }  // end of for LOOP
+        //res.send();
+      }) // end of .DONE
+
+
+  
+    </script>
+  </body>
+
+</html>
